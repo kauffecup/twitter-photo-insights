@@ -3,3 +3,6 @@ node_modules
 TWITTER_CONFIG.json
 twit_zips
 VCAP_SERVICES.json
+public/bundle.js
+public/style.css
+server/lib/**/*

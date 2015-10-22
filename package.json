@@ -1,18 +1,46 @@
 {
   "name": "twitter-photo-insights",
   "version": "0.0.1",
-  "main": "app.js",
   "scripts": {
-    "start": "babel-node app.js"
+    "start": "node server/lib/app.js",
+    "build-server": "gulp build-server",
+    "build": "gulp build",
+    "dev": "gulp dev"
   },
   "dependencies": {
     "archiver": "^0.16.0",
     "babel": "^5.8.23",
     "bluebird": "^2.10.1",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "keymirror": "^0.1.1",
+    "morgan": "^1.6.1",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.0",
     "request": "^2.65.0",
     "twitter": "^1.2.5",
     "watson-developer-cloud": "^0.10.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^6.0.3",
+    "babel-core": "^5.8.25",
+    "babelify": "^6.4.0",
+    "browser-sync": "^2.9.11",
+    "browserify": "^11.2.0",
+    "csswring": "^4.0.0",
+    "envify": "^3.4.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-less": "^3.0.3",
+    "gulp-postcss": "^6.0.1",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "node-dev": "^2.7.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3"
+  },
   "author": "Jonathan Kaufman <jdkaufman5@gmail.com> (http://jkaufman.io)"
 }
