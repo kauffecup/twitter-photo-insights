@@ -2,3 +2,4 @@ node_modules
 *.log
 TWITTER_CONFIG.json
 twit_zips
+VCAP_SERVICES.json

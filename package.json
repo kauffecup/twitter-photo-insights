@@ -10,7 +10,8 @@
     "babel": "^5.8.23",
     "bluebird": "^2.10.1",
     "request": "^2.65.0",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "watson-developer-cloud": "^0.10.6"
   },
   "devDependencies": {},
   "author": "Jonathan Kaufman <jdkaufman5@gmail.com> (http://jkaufman.io)"

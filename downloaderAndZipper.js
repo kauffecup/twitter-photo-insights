@@ -17,11 +17,13 @@ if (!fs.existsSync(PIC_DIRECTORY)) {
 export default function zipLinks(links, screenName) {
   return new Promise((resolve, reject) => {
     // create our archive and output stream
+    var zipPath = PIC_DIRECTORY + '/' + screenName  + '.zip';
     var archive = archiver.create('zip', {});
     var output = fs.createWriteStream(PIC_DIRECTORY + '/' + screenName  + '.zip');
     // set up event handling
-    archive.on('finish', resolve);
-    archive.on('error', reject)
+    output.on('finish', () => resolve(zipPath));
+    output.on('error', reject);
+    archive.on('error', reject);
     // pipe the archiver into the write stream
     archive.pipe(output);
     // for every link, append the request with the proper name
