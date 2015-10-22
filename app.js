@@ -8,6 +8,8 @@ const MAX_PAGES = 1;
 const COUNT = 200;
 const MAX_IMAGES = 200;
 const PIC_DIRECTORY = __dirname + '/twit_zips';
+/** regex converts 'http://a/b/c/blah-blah.jpg' to 'blah-blah.jpg' */
+const COOL_REGEX = /(?=\w+\.\w{3,4}$).+/;
 
 var request = Promise.promisifyAll(require('request'));
 var twitter = new Twitter(twitterConfig);
@@ -65,33 +67,42 @@ function getLinksRecurse(screenName, tweets, links, iteration, resolve, reject) 
   iteration = iteration || 0;
   links = links.concat(extractLinks(tweets));
   if (iteration >= MAX_PAGES || (tweets.length < COUNT && iteration > 0) || links.length >= MAX_IMAGES) {
-    resolve(links.slice(0, MAX_IMAGES));
+    return resolve(links.slice(0, MAX_IMAGES));
+  } else {
+    var sinceID = tweets && tweets.length ? tweets[tweets.length - 1].id : null;
+    getPage(screenName, sinceID).then(tweets => {
+      getLinksRecurse(screenName, tweets, links, ++iteration, resolve, reject);
+    }).catch(e => reject(e));
   }
-
-  var sinceID = tweets && tweets.length ? tweets[tweets.length - 1].id : null;
-  getPage(screenName, sinceID).then(tweets => {
-    getLinksRecurse(screenName, tweets, links, ++iteration, resolve, reject);
-  }).catch(e => reject(e));
 }
 
 /** Given an array of image links and a screen name, make all the requests for the images,
-  * and put them in a zip under PIC_DIRECTORY */
+  * and put them in a zip under PIC_DIRECTORY. Returns a promise. */
 function zipLinks(links, screenName) {
-  // create our archive and output stream
-  var archive = archiver.create('zip', {});
-  var output = fs.createWriteStream(PIC_DIRECTORY + '/' + screenName  + '.zip');
-  // pipe the archiver into the write stream
-  archive.pipe(output);
-  // for every link, append the request with the proper name
-  // regex converts 'http://a/b/c/blah-blah.jpg' to 'blah-blah.jpg'
-  links.map(l => archive.append(request(l), {name: /(?=\w+\.\w{3,4}$).+/.exec(l)[0]}))
-  // finalize our archive...
-  archive.finalize();
+  return new Promise((resolve, reject) => {
+    // create our archive and output stream
+    var archive = archiver.create('zip', {});
+    var output = fs.createWriteStream(PIC_DIRECTORY + '/' + screenName  + '.zip');
+    // set up event handling
+    archive.on('finish', resolve);
+    archive.on('error', reject)
+    // pipe the archiver into the write stream
+    archive.pipe(output);
+    // for every link, append the request with the proper name
+    links.map(l => {
+      var postRegEx = COOL_REGEX.exec(l);
+      if (postRegEx && postRegEx[0]) {
+        archive.append(request(l), {name: postRegEx[0]});
+      }
+    });
+    // finalize our archive...
+    archive.finalize();
+  });
 }
 
 /** The momma function: for a twitter screen name, get and zip their images */
 function getAndZipImages(screenName) {
-  getAlotOfLinks(screenName).then(links => {
-    zipLinks(links, screenName);
+  return getAlotOfLinks(screenName).then(links => {
+    return zipLinks(links, screenName);
   });
 }
