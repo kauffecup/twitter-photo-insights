@@ -1,0 +1,17 @@
+{
+  "name": "twitter-photo-insights",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node app.js"
+  },
+  "dependencies": {
+    "archiver": "^0.16.0",
+    "babel": "^5.8.23",
+    "bluebird": "^2.10.1",
+    "request": "^2.65.0",
+    "twitter": "^1.2.5"
+  },
+  "devDependencies": {},
+  "author": "Jonathan Kaufman <jdkaufman5@gmail.com> (http://jkaufman.io)"
+}
