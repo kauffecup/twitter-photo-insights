@@ -1,9 +1,15 @@
-import React     from 'react';
+import React    from 'react';
+import ReactDOM from 'react-dom';
+import Searcher from './components/Searcher';
 
 class TwitterPhotoInsights extends React.Component {
   render () {
-    return <div className="twitter-photo-insights">Hello World</div>;
+    return (
+      <div className="twitter-photo-insights">
+        <Searcher />
+      </div>
+    );
   }
 };
 
-React.render(<TwitterPhotoInsights />, document.body);
+ReactDOM.render(<TwitterPhotoInsights />, document.body);
