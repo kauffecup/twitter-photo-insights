@@ -4,7 +4,7 @@ import archiver      from 'archiver';
 
 const PIC_DIRECTORY = __dirname + '/twit_zips';
 /** regex converts 'http://a/b/c/blah-blah.jpg' to 'blah-blah.jpg' */
-const COOL_REGEX = /(?=\w+\.\w{3,4}$).+/;
+const COOL_REGEX = /.*\/(.*)/;
 
 var request = Promise.promisifyAll(require('request'));
 
@@ -29,8 +29,8 @@ export default function zipLinks(links, screenName) {
     // for every link, append the request with the proper name
     links.map(l => {
       var postRegEx = COOL_REGEX.exec(l);
-      if (postRegEx && postRegEx[0]) {
-        archive.append(request(l), {name: postRegEx[0]});
+      if (postRegEx && postRegEx[0] && postRegEx[1]) {
+        archive.append(request(l), {name: postRegEx[1]});
       }
     });
     // finalize our archive...

@@ -12,6 +12,11 @@ visualCredentials.version = 'v1';
 // initialize the tone analyzer
 var visualInsights = watson.visual_insights(visualCredentials);
 
+/**
+ * Our export function! Given a filepath to a zip file
+ * that contains images, hand 'em off to watson. Returns
+ * a promise that resolves with watson's response.
+ */
 export default function getVisualInsights(path) {
   return new Promise((resolve, reject) => {
     visualInsights.summary({
@@ -25,33 +30,3 @@ export default function getVisualInsights(path) {
     })
   });
 }
-
-
-// /**
-//  * Classifies @param images_file using all available classifiers.
-//  *
-//  * @param  {ReadStream} images_file The zip of images to analyze.
-//  */
-// VisualInsights.prototype.summary = function(params, callback) {
-//   params = params || {};
-
-//   if (!params.images_file) {
-//     callback(new Error('Missing required parameters: images_file'));
-//     return;
-//   }
-
-//   if (!isStream(params.images_file)) {
-//     callback(new Error('images_file is not a standard Node.js Stream'));
-//     return;
-//   }
-
-//   var parameters = {
-//     options: {
-//       method: 'POST',
-//       url: '/v1/summary',
-//       formData: params,
-//       json: true
-//     },
-//     defaultOptions: this._options
-//   };
-//   return requestFactory(parameters, callback);
