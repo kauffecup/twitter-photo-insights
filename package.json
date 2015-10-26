@@ -19,6 +19,7 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "request": "^2.65.0",
+    "superagent": "^1.4.0",
     "twitter": "^1.2.5",
     "watson-developer-cloud": "^0.10.6"
   },
