@@ -19,6 +19,7 @@
     "morgan": "^1.6.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
+    "react-bubble-chart": "^0.3.0",
     "react-dom": "^0.14.0",
     "request": "^2.65.0",
     "superagent": "^1.4.0",

@@ -4,7 +4,7 @@
 // get the page ready
 * { outline: none; box-sizing: border-box; }
 body { padding: 0; margin: 0; }
-html, body { height: 100%; width: 100%; position: absolute; top: 0; right: 0; }
+html, body, .twitter-photo-insights { height: 100%; width: 100%; position: absolute; top: 0; right: 0; }
 body, button, input {
   font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   font-size: 1em;
@@ -28,5 +28,57 @@ a {
 
 // let the real CSS begin
 .twitter-photo-insights {
+  display: flex;
+  flex-direction: column;
 
+  /* Center the contents of the bubble chart */
+  .bubble-chart-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    user-select: none;
+    justify-content: center;
+
+    .bubble {
+      fill: rgb(31, 119, 180);
+      fill-opacity: .25;
+      stroke: rgb(31, 119, 180);
+      stroke-width: 1px;
+      &.leaf {
+        fill: #ff7f0e;
+        fill-opacity: 1;
+      }
+    }
+
+    .bubble-chart-text {
+      /* Center text in the circle, and hide any overflow */
+      .bubble-label {
+        text-align: center;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: 50%;
+        will-change: left, top, height, width;
+        /* Show the overflow when hovering over a label */
+        &:hover {
+          overflow: visible;
+          font-weight: bold;
+        }
+        /* Optional, but recommended - reduce the size of text on medium bubbles */
+        &.medium {
+          font-size: 0.8em;
+        }
+        /* Optional, but recommended - hide the text on small bubbles */
+        &.small {
+          font-size: 0;
+          /* Make sure to unhide the text when hovering */
+          &:hover {
+            font-size: 0.8em;
+          }
+        }
+      }
+    }
+}
 }

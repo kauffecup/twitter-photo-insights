@@ -22,7 +22,6 @@ var TwitterStore = assign({}, _Store, {
 Dispatcher.register(action => {
   switch(action.actionType) {
     case Constants.LOADING_VISUAL_INSIGHTS:
-      _data = {};
       _state = Constants.INSIGHT_STATE_LOADING;
       TwitterStore.emitChange();
       break;

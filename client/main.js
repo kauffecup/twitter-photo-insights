@@ -1,7 +1,9 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
+import Constants    from './constants/Constants';
 import TwitterStore from './stores/TwitterStore';
 import Searcher     from './components/Searcher';
+import BubbleTown   from './components/BubbleTown';
 
 class TwitterPhotoInsights extends React.Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class TwitterPhotoInsights extends React.Component {
     return (
       <div className="twitter-photo-insights">
         <Searcher />
+        <BubbleTown data={this.state.insightData} />
       </div>
     );
   }

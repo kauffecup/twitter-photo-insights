@@ -37,7 +37,7 @@
  */
 export default function (summary) {
   return {
-    name: "Insights",
+    _id: "Insights",
     children: step2(step1(summary))
   }
 }
@@ -98,9 +98,9 @@ function step2 (step1Map) {
   var children = [];
   for (var key in step1Map) {
     var value = step1Map[key];
-    var myObj = {name: key};
+    var myObj = {_id: key};
     if (typeof value === 'number') {
-      myObj.score = value
+      myObj.value = value
     } else {
       myObj.children = step2(value.children);
     }
